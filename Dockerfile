@@ -17,6 +17,7 @@ RUN /usr/local/bin/install-python-packages.sh \
       ara==0.16.5 \
       openstackclient \
       kubernetes \
-      pyghmi
+      pyghmi \
+      git+https://git.openstack.org/openstack/ospurge
 
 ENV PATH=/var/lib/ansible-venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
