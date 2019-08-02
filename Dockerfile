@@ -8,6 +8,7 @@ RUN set -ex ;\
       virtualenv \
       python-dev \
       gcc \
+      git \
       openssh-client
 
 COPY install-ansible.sh /usr/local/bin/install-python-packages.sh
