@@ -4,9 +4,9 @@ RUN set -ex ;\
     apt-get update ;\
     apt-get upgrade -y ;\
     apt-get install -y \
-      python \
-      virtualenv \
-      python-dev \
+      python3 \
+      python3-virtualenv \
+      python3-dev \
       gcc \
       git \
       openssh-client
@@ -15,7 +15,7 @@ COPY install-ansible.sh /usr/local/bin/install-python-packages.sh
 
 RUN /usr/local/bin/install-python-packages.sh \
       ansible \
-      ara==0.16.5 \
+      ara \
       openstackclient \
       kubernetes \
       pyghmi \
