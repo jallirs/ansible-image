@@ -1,12 +1,10 @@
 #!/bin/bash
 
-#if [[ "$(python -c 'import sys; print(sys.version_info[0])')" == "2" ]]; then
-#    TMP_VIRTUALENV="virtualenv"
-#else
-#    TMP_VIRTUALENV="python3 -m virtualenv --python=python3"
-#fi
-
-TMP_VIRTUALENV="python3 -m virtualenv --python=python3"
+if [[ "$(python -c 'import sys; print(sys.version_info[0])')" == "2" ]]; then
+    TMP_VIRTUALENV="virtualenv"
+else
+    TMP_VIRTUALENV="python3 -m virtualenv --python=python3"
+fi
 
 # This little dance allows us to install the latest pip and setuptools
 # without get_pip.py or the python-pip package (in epel on centos)
@@ -26,7 +24,7 @@ ${TMP_VIRTUALENV} --extra-search-dir=/tmp/wheels ${SETUPTOOLS} ${PIPBOOTSTRAP}
 source ${PIPBOOTSTRAP}/bin/activate
 
 # Upgrade to the latest version of virtualenv
-bash -c "source ${PIPBOOTSTRAP}/bin/activate; pip3 install --upgrade ${PIP_ARGS} virtualenv"
+bash -c "source ${PIPBOOTSTRAP}/bin/activate; pip install --upgrade ${PIP_ARGS} virtualenv"
 
 # Forget the cached locations of python binaries
 hash -r
@@ -34,16 +32,18 @@ hash -r
 # Create the virtualenv with the updated toolchain for openstack service
 mkdir -p /var/lib/ansible-venv
 chown "$(whoami)" /var/lib/ansible-venv
-virtualenv -p python3 /var/lib/ansible-venv
+virtualenv /var/lib/ansible-venv
 
 # Deactivate the old bootstrap virtualenv and switch to the new one
 deactivate
 source /var/lib/ansible-venv/bin/activate
 
 # Install python packages not included as rpms
-pip3 install --upgrade ${PIP_ARGS} $@
+pip install --upgrade ${PIP_ARGS} $@
 
 deactivate
+rm /var/lib/ansible-venv/bin/python
+cp /var/lib/ansible-venv/bin/python3 /var/lib/ansible-venv/bin/python
 echo "export PATH=/var/lib/ansible-venv/bin:\${PATH}" >> ${HOME}/.bash_profile
 source ${HOME}/.bash_profile
 sh -c "echo PATH=/var/lib/ansible-venv/bin:\$PATH >> /etc/environment"
