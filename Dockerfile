@@ -1,5 +1,6 @@
 FROM docker.io/ubuntu:bionic
 
+COPY install-ansible.sh /usr/local/bin/install-python-packages.sh
 RUN set -ex ;\
     apt-get update ;\
     apt-get upgrade -y ;\
@@ -9,22 +10,11 @@ RUN set -ex ;\
       python3-dev \
       gcc \
       git \
-      openssh-client --no-install-recommends
-
-COPY install-ansible.sh /usr/local/bin/install-python-packages.sh
-
-RUN /usr/local/bin/install-python-packages.sh \
+      vim \ 
+      openssh-client --no-install-recommends; \
+      /usr/local/bin/install-python-packages.sh \
       ansible \
-      "Django>=2.1.5" \
-      "djangorestframework>=3.9.1" \
-      django-cors-headers \
-      django-filter \
-      django-health-check \
-      "dynaconf[yaml]" \
-      tzlocal \
-      whitenoise \
-      pygments \
-      git+https://opendev.org/recordsansible/ara.git \
+      "ara==0.16.6" \
       openstackclient \
       kubernetes \
       pyghmi \
