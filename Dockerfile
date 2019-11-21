@@ -1,4 +1,4 @@
-FROM docker.io/ubuntu:xenial
+FROM docker.io/ubuntu:bionic
 
 RUN set -ex ;\
     apt-get update ;\
@@ -9,7 +9,7 @@ RUN set -ex ;\
       python3-dev \
       gcc \
       git \
-      openssh-client
+      openssh-client --no-install-recommends
 
 COPY install-ansible.sh /usr/local/bin/install-python-packages.sh
 
