@@ -3,7 +3,7 @@
 if [[ "$(python -c 'import sys; print(sys.version_info[0])')" == "2" ]]; then
     TMP_VIRTUALENV="virtualenv"
 else
-    TMP_VIRTUALENV="python3 -m virtualenv --python=python3.6.5"
+    TMP_VIRTUALENV="python3 -m virtualenv --python=python3.6"
 fi
 
 # This little dance allows us to install the latest pip and setuptools
@@ -24,7 +24,7 @@ ${TMP_VIRTUALENV} --extra-search-dir=/tmp/wheels ${SETUPTOOLS} ${PIPBOOTSTRAP}
 source ${PIPBOOTSTRAP}/bin/activate
 
 # Upgrade to the latest version of virtualenv
-bash -c "source ${PIPBOOTSTRAP}/bin/activate; pip install --upgrade ${PIP_ARGS} virtualenv"
+bash -c "source ${PIPBOOTSTRAP}/bin/activate; pip3 install --upgrade ${PIP_ARGS} virtualenv"
 
 # Forget the cached locations of python binaries
 hash -r
@@ -32,7 +32,7 @@ hash -r
 # Create the virtualenv with the updated toolchain for openstack service
 mkdir -p /var/lib/ansible-venv
 chown "$(whoami)" /var/lib/ansible-venv
-virtualenv --python=python3.6.5 /var/lib/ansible-venv
+virtualenv --python=python3.6 /var/lib/ansible-venv
 
 # Deactivate the old bootstrap virtualenv and switch to the new one
 deactivate
