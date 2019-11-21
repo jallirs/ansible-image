@@ -37,13 +37,3 @@ virtualenv --python=python3.6 /var/lib/ansible-venv
 # Deactivate the old bootstrap virtualenv and switch to the new one
 deactivate
 source /var/lib/ansible-venv/bin/activate
-
-# Install python packages not included as rpms
-pip3 install --upgrade ${PIP_ARGS} $@
-
-deactivate
-rm /var/lib/ansible-venv/bin/python
-cp /var/lib/ansible-venv/bin/python3 /var/lib/ansible-venv/bin/python
-echo "export PATH=/var/lib/ansible-venv/bin:\${PATH}" >> ${HOME}/.bash_profile
-source ${HOME}/.bash_profile
-sh -c "echo PATH=/var/lib/ansible-venv/bin:\$PATH >> /etc/environment"
