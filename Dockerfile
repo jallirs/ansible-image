@@ -10,7 +10,9 @@ RUN set -ex ;\
       python3-dev \
       gcc \
       git \
-      vim \ 
+      vim \
+      wget \
+      ping \
       openssh-client --no-install-recommends; \
       /usr/local/bin/install-python-packages.sh \
       ansible \
