@@ -12,7 +12,7 @@ RUN set -ex ;\
       git \
       vim \
       wget \
-      ping \
+      inetutils-ping \
       openssh-client --no-install-recommends; \
       /usr/local/bin/install-python-packages.sh \
       ansible \
