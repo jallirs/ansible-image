@@ -1,0 +1,14 @@
+FROM docker.io/ubuntu:bionic
+
+
+COPY isolcpus/grub-isolcpus-change.py /usr/local/sbin/grub-isolcpus-change.py
+COPY isolcpus/entrypoint.sh /usr/local/sbin/entrypoint.sh
+
+RUN set -ex ;\
+    apt-get update ;\
+    apt-get install -y \
+      python3
+
+RUN chmod +x /usr/local/sbin/entrypoint.sh
+
+ENTRYPOINT ["/usr/local/sbin/entrypoint.sh"]
