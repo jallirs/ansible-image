@@ -4,7 +4,7 @@ import os
 import shlex
 
 #CPU'S List
-ISOLCPU_LIST = "2,3,16,17,30,31,44,45"
+ISOLCPU_LIST = "4,5,6,7,48,49,50,51"
 
 #Various Grubs
 grubs = { "/mnt/etc/default/grub.ucf-dist",
