@@ -1,0 +1,14 @@
+FROM python:3.8.12-alpine3.14
+
+#build command used docker build .
+ARG EXPORTER_VERSION=0.14.0
+
+WORKDIR /usr/src/app
+RUN apk add --no-cache git; \
+	git clone --depth 1 --branch ${EXPORTER_VERSION} https://github.com/braedon/prometheus-es-exporter.git; \
+        cd prometheus-es-exporter; \
+        pip install -e . ; \
+        apk del git;
+
+EXPOSE 9206
+ENTRYPOINT ["python", "-u", "/usr/local/bin/prometheus-es-exporter"]
